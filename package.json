@@ -24,7 +24,7 @@
   "scripts": {
     "build": "webpack --mode development",
     "watch": "webpack -w",
-    "start": "webpack serve --mode development"
+    "start": "webpack serve --mode development --host 0.0.0.0"
   },
   "dependencies": {
     "animejs": "^3.2.1"
