@@ -20,6 +20,7 @@ pipeline{
             }
         }
         stage('Code Quality') { 
+        steps{
          script {
          def scannerHome = tool 'test';
              withSonarQubeEnv("test") {
