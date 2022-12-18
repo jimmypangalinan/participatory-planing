@@ -1,4 +1,3 @@
-
 def secret = 'nexus01'
 def server = 'nexus01@103.13.206.96'
 def directory = 'participatory-planing'
