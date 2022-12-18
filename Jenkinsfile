@@ -24,7 +24,7 @@ pipeline{
                 sshagent([secret]) {
                     sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
                     cd ${directory}
-                    docker build -t 103.13.206.96:50002/esri-prod/participatory-planing:$BUILD_NUMBER
+                    docker build -t 103.13.206.96:50002/esri-prod/participatory-planing:$BUILD_NUMBER .
                     exit
                     EOF"""
                  }
