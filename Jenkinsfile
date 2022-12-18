@@ -39,9 +39,18 @@ pipeline{
                     docker run -d -t ${registry}:${BUILD_NUMBER}
                     exit
                     EOF"""
-       stage('Remove Docker Image') {
-         sh "docker rmi -f ${registry}:${BUILD_NUMBER}"
-      }
+                 }
+             }
+        }
+          stage ('push image to registry'){
+            steps{
+                sshagent([secret]) {
+                    sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
+                    cd ${directory}
+                    docker push ${registry}:${BUILD_NUMBER} 
+                    exit
+                    EOF"""
+
                 }
             }
         }
