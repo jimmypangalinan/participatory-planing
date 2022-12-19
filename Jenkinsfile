@@ -22,12 +22,13 @@ pipeline{
             }
         }
        stage ('SonarQube Analysis'){
-         steps{
-             withSonarQubeEnv("sonarqube-server") {
-             sh "${tool("sonarqube-server")}/bin/sonar-scanner \
-             -Dsonar.projectKey=test \
-             -Dsonar.host.url=http://103.31.39.128:9000/ \
-             -Dsonar.login=61efe6259f9a508a08de6ca9937f335b30f04a4b"
+          steps{
+            sshagent([secret]) {
+                  sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
+                  withSonarQubeEnv(installationName: 'sonarqube-server') {
+                  sh 'mvn clean install -U -DskipTests -f my-package/pom.xml sonar:sonar -Dsonar.login=61efe6259f9a508a08de6ca9937f335b30f04a4b'
+                  exit
+                  EOF"""
                }
            }
        }
