@@ -22,12 +22,8 @@ pipeline{
         }
        stage ('SonarQube Analysis'){
           steps{
-            sshagent([secret]) {
-                  sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
-                  withSonarQubeEnv(installationName: 'sonarqube-server') {
+                withSonarQubeEnv(installationName: 'sonarqube-server') {
                   sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
-                  exit
-                  EOF"""
                }
            }
        }
