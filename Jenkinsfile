@@ -23,7 +23,7 @@ pipeline{
        stage ('SonarQube Analysis'){
           steps{
               withSonarQubeEnv(installationName: 'sonarqube-server') {
-                  sh './mvnw clean org.sonarsource.scanner.maven-plugin:3.9.0.2155:sonar'
+                  sh sudo './mvnw clean org.sonarsource.scanner.maven-plugin:3.9.0.2155:sonar'
                }
            }
        }
