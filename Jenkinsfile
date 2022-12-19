@@ -20,15 +20,10 @@ pipeline{
                 }
             }
         }
-        stage ('SCM') {
-           steps{
-            checkout scm
-        }
        stage ('SonarQube Analysis'){
           steps{
-              def scannerHome = tool 'SonarScanner';
-              withSonarQubeEnv() {
-                  sh "${scannerHome}/bin/sonar-scanner"
+              withSonarQubeEnv(installationName: 'test') {
+                  sh './mvnw clean org.sonarsource.scanner.maven-plugin:3.9.0.2155:sonar'
                }
            }
        }
