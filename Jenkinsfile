@@ -22,10 +22,13 @@ pipeline{
             }
         }
        stage ('SonarQube Analysis'){
-          steps{
+            steps{
+                sshagent([secret]) {
+                  sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
                   withSonarQubeEnv('sonarqube-server') {
-                  sh 'mvn sonar:sonar -Dsonar.host.url=http://103.31.39.128:9000/
-                  -Dsonar.login= -Dsonar.login=69366967208e8615f640ce15711d56bbcdbcc423'
+                  mvn sonar:sonar -Dsonar.host.url=http://103.31.39.128:9000/ -Dsonar.login= -Dsonar.login=69366967208e8615f640ce15711d56bbcdbcc423'
+                  exit
+                  EOF"""
                }
            }
        }
