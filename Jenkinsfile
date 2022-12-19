@@ -25,7 +25,7 @@ pipeline{
           steps{
                   withSonarQubeEnv('sonarqube-server') {
                   sh 'mvn clean verify sonar:sonar -Dsonar.login=69366967208e8615f640ce15711d56bbcdbcc423'
-                  sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
+                  sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0:sonar'
                }
            }
        }
