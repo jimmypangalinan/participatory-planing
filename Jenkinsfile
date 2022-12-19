@@ -3,7 +3,7 @@ def server = 'nexus01@103.13.206.96'
 def directory = 'participatory-planing'
 def branch = 'master'
 def registry = '103.13.206.96:50002/esri-prod/participatory-planing'
-def scannerHome = 'sonarqube-server'
+
 
 pipeline{
         agent any
@@ -23,8 +23,9 @@ pipeline{
         }
        stage ('SonarQube Analysis'){
             steps{
+               def scannerHome = tool 'SonarScanner 4.0';
                   withSonarQubeEnv(installationName: 'sonarqube-server') {
-                  sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
+                  sh "${scannerHome}/bin/sonar-scanner"
                }
            }
        }
