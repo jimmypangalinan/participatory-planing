@@ -1,4 +1,4 @@
-def secret = 'nexus02'
+def secret = 'nexus03'
 def server = 'root@103.13.206.96'
 def directory = 'participatory-planing'
 def branch = 'master'
