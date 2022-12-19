@@ -21,9 +21,10 @@ pipeline{
             }
         }
        stage ('SonarQube Analysis'){
-          steps{
-                withSonarQubeEnv(installationName: 'sonarqube-server') {
-                  sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
+         script {
+         def scannerHome = tool 'sonarqube-server';
+             withSonarQubeEnv("sonarqube-server") {
+             sh "${tool("sonarqube-server")}/bin/sonar-scanner
                }
            }
        }
