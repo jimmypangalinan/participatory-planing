@@ -3,7 +3,6 @@ def server = 'nexus01@103.13.206.96'
 def directory = 'participatory-planing'
 def branch = 'master'
 def registry = '103.13.206.96:50002/esri-prod/participatory-planing'
-def scannerHome = 'SonarScanner 4.0'
 
 pipeline{
         agent any
@@ -24,7 +23,7 @@ pipeline{
        stage ('SonarQube Analysis'){
             steps{
                   withSonarQubeEnv(installationName: 'sonarqube-server') {
-                  sh "${scannerHome}/bin/sonar-scanner"
+                  sh 'mvn verify sonar:sonar -Dsonar.host.url=http://103.31.39.128:9000/ -Dsonar.login=69366967208e8615f640ce15711d56bbcdbcc423 -Dsonar.login=admin -Dsonar.password=sonar'
                }
            }
        }
