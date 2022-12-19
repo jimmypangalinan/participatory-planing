@@ -20,14 +20,15 @@ pipeline{
                 }
             }
         }
-       stage ('SonarQube Analysis'){
-          steps{
-                sshagent([secret]) {
-                  sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
-                  withSonarQubeEnv(installationName: 'sonarqube-server') {
-                  ./mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar
-                  exit
-                  EOF"""
+  stage('SonarQube Analysis') {
+  steps{
+     sshagent([secret]) {
+           sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
+           def scannerHome = tool 'SonarScanner';
+           withSonarQubeEnv(installationName: 'sonarqube-server') {
+           sh "${scannerHome}/bin/sonar-scanner"
+           exit
+           EOF"""
                }
            }
        }
