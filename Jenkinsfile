@@ -24,7 +24,7 @@ pipeline{
        stage ('SonarQube Analysis'){
           steps{
                   withSonarQubeEnv('sonarqube-server') {
-                  sh 'mvn clean install -U -DskipTests -f my-package/pom.xml sonar:sonar -Dsonar.login=69366967208e8615f640ce15711d56bbcdbcc423'
+                  sh 'mvn clean install -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8 -Dsonar.login=69366967208e8615f640ce15711d56bbcdbcc423'
                }
            }
        }
