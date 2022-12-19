@@ -25,7 +25,7 @@ pipeline{
           steps{
             sshagent([secret]) {
                   sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
-                  withSonarQubeEnv(installationName: 'sonarqube-server') {
+                  withSonarQubeEnv('sonarqube-server') {
                   sh 'mvn clean install -U -DskipTests -f my-package/pom.xml sonar:sonar -Dsonar.login=61efe6259f9a508a08de6ca9937f335b30f04a4b'
                   exit
                   EOF"""
