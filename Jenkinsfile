@@ -23,12 +23,8 @@ pipeline{
         }
        stage ('SonarQube Analysis'){
           steps{
-            sshagent([secret]) {
-                  sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
                   withSonarQubeEnv('sonarqube-server') {
-                  sh 'mvn clean install -U -DskipTests -f my-package/pom.xml sonar:sonar -Dsonar.login=61efe6259f9a508a08de6ca9937f335b30f04a4b'
-                  exit
-                  EOF"""
+                  sh 'mvn clean install -U -DskipTests -f my-package/pom.xml sonar:sonar -Dsonar.login=69366967208e8615f640ce15711d56bbcdbcc423'
                }
            }
        }
