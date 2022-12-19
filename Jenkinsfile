@@ -20,6 +20,10 @@ pipeline{
                 }
             }
         }
+      node {
+        stage('SCM') {
+          checkout scm
+        }
        stage ('SonarQube Analysis'){
           steps{
               def scannerHome = tool 'SonarScanner';
