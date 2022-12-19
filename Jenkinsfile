@@ -24,8 +24,8 @@ pipeline{
        stage ('SonarQube Analysis'){
           steps{
                   withSonarQubeEnv('sonarqube-server') {
-                  sh 'mvn clean verify sonar:sonar -Dsonar.login=69366967208e8615f640ce15711d56bbcdbcc423'
-                  sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0:sonar'
+                  sh 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000
+                  -Dsonar.login= -Dsonar.login=69366967208e8615f640ce15711d56bbcdbcc423'
                }
            }
        }
