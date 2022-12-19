@@ -20,7 +20,7 @@ pipeline{
                 }
             }
         }
-        stage('SCM') {
+        stage ('SCM') {
            steps{
             checkout scm
         }
