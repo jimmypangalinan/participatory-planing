@@ -1,5 +1,5 @@
 def secret = 'nexus02'
-def server = 'nexus01@103.13.206.96'
+def server = 'root@103.13.206.96'
 def directory = 'participatory-planing'
 def branch = 'master'
 def registry = '103.13.206.96:50002/esri-prod/participatory-planing'
