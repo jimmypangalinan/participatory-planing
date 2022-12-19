@@ -22,13 +22,14 @@ pipeline{
         }
                 
 
-  stage ('SonarQube Analysis'){
-    def scannerHome = tool 'SonarScanner';
-    withSonarQubeEnv() {
-      sh "${scannerHome}/bin/sonar-scanner"
-    }
-  }
-}
+       stage ('SonarQube Analysis'){
+          def scannerHome = tool 'SonarScanner';
+          withSonarQubeEnv() {
+            sh "${scannerHome}/bin/sonar-scanner"
+             }
+          }
+      }
+
         stage ('build images'){
             steps{
                 sshagent([secret]) {
