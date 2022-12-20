@@ -37,8 +37,8 @@ pipeline{
                 sshagent([secret]) {
                     sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
                     cd ${directory}
-                    docker stop container ${registry}:${BUILD_NUMBER}
-                    docker rm container ${registry}:${BUILD_NUMBER}
+                    docker stop container participatory-planing-prod
+                    docker rm container participatory-planing-prod
                     docker run --name participatory-planing-prod -d -p 3002:3001 -t  ${registry}:${BUILD_NUMBER}
                     exit
                     EOF"""
