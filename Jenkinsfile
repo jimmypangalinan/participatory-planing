@@ -1,5 +1,5 @@
-def secret = 'nexus02'
-def server = 'nexus01@103.13.206.96'
+def secret = 'docker-host'
+def server = 'dockeradmin@52.221.192.202'
 def directory = 'participatory-planing'
 def branch = 'dev'
 def registry = '103.13.206.96:50003/esri-dev/participatory-planing'
