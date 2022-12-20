@@ -14,6 +14,7 @@ pipeline{
                     cd ${directory}
                     docker-compose down
                     docker system prune -f
+                    git checkout ${branch}
                     git pull origin ${branch}
                     exit
                     EOF"""
