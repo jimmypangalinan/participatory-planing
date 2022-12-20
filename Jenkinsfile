@@ -32,24 +32,12 @@ pipeline{
                  }
              }
         }
-         stage ('remove existing container'){
-            steps{
-                sshagent([secret]) {
-                    sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
-                    cd ${directory}
-                    docker container stop  ${registry}:${BUILD_NUMBER}
-                    docker container rm ${registry}:${BUILD_NUMBER}
-                    exit
-                    EOF"""
-                 }
-             }
-        }
         stage ('deploy'){
             steps{
                 sshagent([secret]) {
                     sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
                     cd ${directory}
-                    docker run -d -p 3001:3001 -t  ${registry}:${BUILD_NUMBER}
+                    docker run --name participatory-planing-staging -d -p 3001:3001 -t  ${registry}:${BUILD_NUMBER}
                     exit
                     EOF"""
                  }
@@ -63,9 +51,19 @@ pipeline{
                     docker push ${registry}:${BUILD_NUMBER} 
                     exit
                     EOF"""
-
+                 }
+            }
+        }
+         stage ('remove old image '){
+            steps{
+                sshagent([secret]) {
+                    sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
+                    cd ${directory}
+                    docker image prune -f -a
+                    exit
+                    EOF"""
               }
-          }
+           }
         }
      }
   }
