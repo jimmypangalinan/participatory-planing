@@ -1,4 +1,4 @@
-def secret = 'docker-host'
+def secret = 'dockeradmin'
 def server = 'dockeradmin@52.221.192.202'
 def directory = 'participatory-planing'
 def branch = 'dev'
