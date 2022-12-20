@@ -54,16 +54,6 @@ pipeline{
                  }
             }
         }
-          stage ('remove old image and container '){
-            steps{
-                sshagent([secret]) {
-                    sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
-                    cd ${directory}
-                    sh "docker rmi -f ${registry}:${BUILD_NUMBER}"
-                    exit
-                    EOF"""
-              }
-           }
-        }
+
      }
   }
