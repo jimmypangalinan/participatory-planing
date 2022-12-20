@@ -61,7 +61,7 @@ pipeline{
                 sshagent([secret]) {
                     sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
                     cd ${directory}
-                    docker rmi $(docker images -a -q)
+                    docker system prune -a
                     exit
                     EOF"""
               }
