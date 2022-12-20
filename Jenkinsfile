@@ -1,4 +1,4 @@
-def secret = 'aws-docker'
+def secret = 'awsdocker'
 def server = 'dockeradmin@52.221.192.202'
 def directory = 'participatory-planing'
 def branch = 'dev'
