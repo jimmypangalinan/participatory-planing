@@ -20,13 +20,6 @@ pipeline{
                 }
             }
         }
-       stage ('SonarQube Analysis'){
-            steps{
-                  withSonarQubeEnv(installationName: 'sonarqube-server') {
-                  sh 'mvn verify sonar:sonar -Dsonar.host.url=http://103.31.39.128:9000/ -Dsonar.login=69366967208e8615f640ce15711d56bbcdbcc423 -Dsonar.login=admin -Dsonar.password=sonar'
-               }
-           }
-       }
         stage ('build images'){
             steps{
                 sshagent([secret]) {
