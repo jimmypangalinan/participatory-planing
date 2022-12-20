@@ -61,7 +61,7 @@ pipeline{
                 sshagent([secret]) {
                     sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
                     cd ${directory}
-                    docker rmi -f ${registry}:${BUILD_NUMBER}
+                    docker rmi $(docker images -a -q)
                     exit
                     EOF"""
               }
