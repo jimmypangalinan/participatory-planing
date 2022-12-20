@@ -1,4 +1,4 @@
-def secret = 'docker-host'
+def secret = 'awsdocker'
 def server = 'dockeradmin@52.221.192.202'
 def directory = 'participatory-planing'
 def branch = 'master'
@@ -50,9 +50,20 @@ pipeline{
                     docker push ${registry}:${BUILD_NUMBER} 
                     exit
                     EOF"""
-
+                 }
+            }
+        }
+          stage ('remove old image and container '){
+            steps{
+                sshagent([secret]) {
+                    sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
+                    cd ${directory}
+                    docker rmi $(docker images -a -q)
+                    docker system prune -f 
+                    exit
+                    EOF"""
               }
-          }
+           }
         }
      }
   }
