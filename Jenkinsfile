@@ -14,6 +14,7 @@ pipeline{
                     cd ${directory}
                     docker-compose down
                     docker system prune -f
+                    git checkout ${branch}
                     git pull origin ${branch}
                     exit
                     EOF"""
@@ -36,7 +37,7 @@ pipeline{
                 sshagent([secret]) {
                     sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
                     cd ${directory}
-                    docker run -d -p 3001:3003 -t  ${registry}:${BUILD_NUMBER}
+                    docker run --name participatory-planing-dev -d -p 3002:3001 -t  ${registry}:${BUILD_NUMBER}
                     exit
                     EOF"""
                  }
@@ -50,9 +51,19 @@ pipeline{
                     docker push ${registry}:${BUILD_NUMBER} 
                     exit
                     EOF"""
-
+                 }
+            }
+        }
+         stage ('remove old image '){
+            steps{
+                sshagent([secret]) {
+                    sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
+                    cd ${directory}
+                    docker image prune -f -a
+                    exit
+                    EOF"""
               }
-          }
+           }
         }
      }
   }
