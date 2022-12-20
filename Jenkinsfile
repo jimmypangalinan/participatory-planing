@@ -1,4 +1,4 @@
-def secret = 'docker-host'
+def secret = 'awsdocker'
 def server = 'dockeradmin@52.221.192.202'
 def directory = 'participatory-planing'
 def branch = 'staging'
@@ -14,6 +14,7 @@ pipeline{
                     cd ${directory}
                     docker-compose down
                     docker system prune -f
+                    git checkout ${branch}
                     git pull origin ${branch}
                     exit
                     EOF"""
@@ -26,6 +27,18 @@ pipeline{
                     sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
                     cd ${directory}
                     docker build -t ${registry}:${BUILD_NUMBER} .
+                    exit
+                    EOF"""
+                 }
+             }
+        }
+         stage ('remove existing container'){
+            steps{
+                sshagent([secret]) {
+                    sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
+                    cd ${directory}
+                    docker container stop  ${registry}:${BUILD_NUMBER}
+                    docker container rm ${registry}:${BUILD_NUMBER}
                     exit
                     EOF"""
                  }
