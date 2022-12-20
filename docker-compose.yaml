@@ -4,4 +4,4 @@ services:
    build: .
    stdin_open: true
    ports:
-    - 30001:3001
+    - 3001:3001
