@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+ frontend:
+   build: .
+   stdin_open: true
+   ports:
+    - 30001:3001
