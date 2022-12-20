@@ -54,6 +54,16 @@ pipeline{
                  }
             }
         }
-
+         stage ('remove old image '){
+            steps{
+                sshagent([secret]) {
+                    sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
+                    cd ${directory}
+                    docker rmi -f ${registry}:${BUILD_NUMBER}
+                    exit
+                    EOF"""
+              }
+           }
+        }
      }
   }
